@@ -1,56 +1,66 @@
 {% extends 'base.html' %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css'%}">
 {% block content %}
-<div class="center">
+<div class="center-table">
     {% if user.is_authenticated %}
 
     <h1>records......</h1>
 
-    <table>
-        <tr>
-            <th>Id</th>
-            <th>first name</th>
-            <th>last name</th>
-            <th>Email</th>
-            <th>phone</th>
-            <th>address</th>
-            <th>city</th>
-            <th>state</th>
-            <th>zipcode</th>
-            <th>date</th>
-        </tr>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>first name</th>
+                <th>last name</th>
+                <th>Email</th>
+                <th>phone</th>
+                <th>address</th>
+                <th>city</th>
+                <th>state</th>
+                <th>zipcode</th>
+                <th>date</th>
+            </tr>
+        </thead>
+        
     {%  if records %}
         {% for record in records %}
-            <tr>
-            <td><a href="{% url 'record' record.id %}">{{ record.id }}</a></td>
-            <td>{{ record.first_name }}</td>
-            <td>{{ record.last_name }}</td>
-            <td>{{ record.email }}</td>
-            <td>{{ record.phone }}</td>
-            <td>{{ record.addres }}</td>
-            <td>{{ record.city }}</td>
-            <td>{{ record.state }}</td>
-            <td>{{ record.zipcode }}</td>
-            <td>{{ record.created_at }}</td>
+            <tbody>
+                <tr>
+                    <td><a href="{% url 'record' record.id %}">{{ record.id }}</a></td>
+                    <td>{{ record.first_name }}</td>
+                    <td>{{ record.last_name }}</td>
+                    <td>{{ record.email }}</td>
+                    <td>{{ record.phone }}</td>
+                    <td>{{ record.addres }}</td>
+                    <td>{{ record.city }}</td>
+                    <td>{{ record.state }}</td>
+                    <td>{{ record.zipcode }}</td>
+                    <td>{{ record.created_at }}</td>
+                    </tr>
+            </tbody>
             
-            </tr>
             {% endfor %}
     {% endif %}
         
     </table>
+</div> 
 
-    
 
     {% else %}
-    <h1>Login</h1>
-    <form method="POST" action="{% url 'home' %}">
-        {% csrf_token %}
-        <input type="text" name="username" placeholder="Username" required>
-        <br>
-        <input type="password" name="password" placeholder="password" required  />
-        <br>
-        <button type="submit" value="ok">Login</button>
-    </form>
-</div> 
+
+    <div class="centered">
+        <form method="POST" action="{% url 'home' %}" class="form-center">
+            <h1>Login </h1>
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required class="input">
+            <br>
+            <input type="password" name="password" placeholder="password" required class="input" />
+            <br>
+            <button type="submit" value="ok" class="btn_confirm">Login</button>
+        </form>
+    </div>
+    
     {% endif %}
 
 
